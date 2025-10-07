@@ -4,6 +4,17 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+
+Route::get('register', [AuthController::class, 'registerForm'])->name('register.form');
+Route::post('register', [AuthController::class, 'register'])->name('register');
+
+Route::get('login', [AuthController::class, 'loginForm'])->name('login.form');
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::get('dashboard', [AuthController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,4 +36,4 @@ Route::middleware('auth')->group(function () {
 });
 
 
-require __DIR__.'/auth.php';
+//require __DIR__.'/auth.php';
