@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-class AuthController extends Controller
+class AuthApiController extends Controller
 {
     // Register new user
-    public function register(Request $request)
+    public function register1(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -36,8 +36,9 @@ class AuthController extends Controller
     }
 
     // Login user and issue token
-    public function login(Request $request)
+    public function login1(Request $request)
     {
+        echo 1;exit;
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password' => 'required|string',
