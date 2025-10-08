@@ -1,16 +1,12 @@
-<?php 
+<?php
 
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\StudentController;
 
-// Route::middleware('auth:sanctum')->group(function () {
-//     Route::get('/employees', [EmployeeController::class, 'index']);
-//     Route::post('/employees', [EmployeeController::class, 'store']);
-//     Route::post('/students', [StudentController::class, 'store']);
-    
-// });
-Route::get('test', function () {
-    return response()->json(['message' => 'Test route works!']);
-});
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
-Route::apiResource('students', StudentController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::apiResource('students', StudentController::class);
+});
