@@ -14,7 +14,7 @@ use Illuminate\Validation\ValidationException;
 class AuthApiController extends Controller
 {
     // Register new user
-    public function register1(Request $request)
+    public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -36,9 +36,8 @@ class AuthApiController extends Controller
     }
 
     // Login user and issue token
-    public function login1(Request $request)
+    public function login(Request $request)
     {
-        echo 1;exit;
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password' => 'required|string',

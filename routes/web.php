@@ -13,7 +13,6 @@ Route::post('register', [AuthController::class, 'register'])->name('register');
  Route::get('login', [AuthController::class, 'loginForm'])->name('login.form');
  Route::post('login', [AuthController::class, 'login'])->name('login');
 
- Route::get('dashboard', [AuthController::class, 'dashboard'])->middleware('auth')->name('dashboard');
 
  Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -25,7 +24,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware('auth')->group(function () {
+ Route::middleware('auth')->group(function () {
+    Route::get('dashboard', [AuthController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -33,17 +34,16 @@ Route::get('/dashboard', function () {
     Route::resource('employees', EmployeeController::class);
     Route::resource('departments', DepartmentController::class);
     Route::delete('/department/student/{id}', [App\Http\Controllers\DepartmentController::class, 'deleteStudent'])->name('department.student.delete');
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('products/list', [ProductController::class, 'getProducts'])->name('products.list');
+    Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('products/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+ });
 
-// });
 
-
-Route::get('products', [ProductController::class, 'index'])->name('products.index');
-Route::get('products/list', [ProductController::class, 'getProducts'])->name('products.list');
-Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
-Route::post('products', [ProductController::class, 'store'])->name('products.store');
-Route::get('products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-Route::put('products/{id}', [ProductController::class, 'update'])->name('products.update');
-Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 
 //require __DIR__.'/auth.php';

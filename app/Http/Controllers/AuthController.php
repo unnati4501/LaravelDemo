@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    // Show registration form
-    public function registerForm() {
-        return view('register');
-    }
-
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -56,11 +51,20 @@ class AuthController extends Controller
         return response()->json(['errors' => ['email' => ['Invalid credentials']]], 422);
     }
 
-    // Show login form
     public function loginForm() {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
         return view('login');
     }
-
+    
+    public function registerForm() {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+        return view('register');
+    }
+    
     // Dashboard (after login)
     public function dashboard() {
         return view('dashboard');
