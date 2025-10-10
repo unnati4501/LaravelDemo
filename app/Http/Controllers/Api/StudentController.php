@@ -20,7 +20,7 @@ class StudentController extends Controller
     {
         $validated = $request->validate([
             'name'          => 'required|string|max:255',
-            'degree'        => 'required|string|max:255',
+            'degree'        => 'nullable|string|max:255',
             'birthdate'     => 'required|date',
             'department_id' => 'required|exists:departments,id',
         ]);
